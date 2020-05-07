@@ -6,17 +6,6 @@ import sys # use to access arguments
 import os # use in order to call commands from the terminal script is called in
 import time # for time stamps
 
-if("sys.argv[1]" not in globals()):
-    print("""
-Noah A. Legall
-Salvador Lab
-Description: Run for loop that will submit a submission job for each accession in an accession list
-Last Update: May 4th 2020
-
-upload an accession list as the only argument.
-    """)
-    sys.exit(0)
-
 #1. create automatically the submission script for qsub
 print("[{}] beginning the accession list download".format(time.strftime('%a %H:%M:%S')))
 qsub_script = open("download_fastq.sh","w")

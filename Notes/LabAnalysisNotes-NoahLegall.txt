@@ -1,0 +1,12 @@
+##May 4th 2020
+Initializing notes.
+TODO -> these will indicate things that need to be done. Typically, I can do 3 of these on a typical workday
+DONE -> these will indicate things that were finished in the day. Typically, I can do 3 of these on a typical workday
+**** -> these will indicate minor thoughts I have while doing something.
+Write daily. Commit at 5 pm every work day.
+
+##May 5th
+TODO: Download all the sequences into the directory
+****: the command to download all the sequences is "cat mbov_accessions.txt | xargs fastq-dump --split-3". it might be worth it to create a script for this that can catch errors and run on multiple processors.
+****: example of how to put in user input into qsub on sapelo2: qsub -v "reference=/path/to/reference.fa,email=email@uga.edu" ./bacteria_SNP/bacteria_pathogen_SNP.sh
+TODO: plots that describe the data (ggplot + patchwork)
