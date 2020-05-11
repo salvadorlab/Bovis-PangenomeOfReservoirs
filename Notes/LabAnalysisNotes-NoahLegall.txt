@@ -10,3 +10,25 @@ TODO: Download all the sequences into the directory
 ****: the command to download all the sequences is "cat mbov_accessions.txt | xargs fastq-dump --split-3". it might be worth it to create a script for this that can catch errors and run on multiple processors.
 ****: example of how to put in user input into qsub on sapelo2: qsub -v "reference=/path/to/reference.fa,email=email@uga.edu" ./bacteria_SNP/bacteria_pathogen_SNP.sh
 TODO: plots that describe the data (ggplot + patchwork)
+DONE: Download all the sequences into the directory
+DONE: plots that describe the data (ggplot + patchwork)
+
+#May 8th
+TODO: Read literature to get best terminology for if reservoir or not reservoir
+****: Incidental Host; a infection that occurs to a species that is not the target species. This makes sense to me, since some of the species are not neccessary to ultimately affect cattle.
+****: Ashford R. W. (2003). When is a reservoir not a reservoir?. Emerging infectious diseases, 9(11), 1495–1496. https://doi.org/10.3201/eid0911.030088
+TODO: Data Cleaning (Read papers to get more insight on data)
+****: The only data cleaning that essentially needs to happen is from the 2017 Crispell paper. I need more information on CERVINE label and maybe also the STOAT.
+****: PORCINE = Wild Pigs, CERVINE = deer (there are many types of deer in New Zealand)
+****: So in the NZ paper, wildlife are considered a maitenance community in general so how should they be labelled
+TODO: Create Folder for the Written/Oral Exam
+DONE: Read literature to get best terminology for if reservoir or not reservoir -> Incidental Host might be good, but very specific. Frankly, we don't know the relationship each species has to cattle, so putting a uniform label might not make sense. Non-Target Host is a good one too, since it makes a clear distinction between cattle and the main reservoir.
+DONE: Data Cleaning (Read papers to get more insight on data). -> Added specific labels to the species tag, also got rid of labels that were synonomous.
+DONE: Create Folder for the Written/Oral Exam
+
+#May 10th (Weekend)
+TODO: Code for Assembly and Annotation with python
+
+#May 11th
+TODO: Code for read trimming, assembly, and annotation.
+TODO: Pangenome review writing

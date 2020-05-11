@@ -38,9 +38,7 @@ R2_UNPAIRED_OUT=${r2_unpaired_out}
 cd $PBS_O_WORKDIR
 module load Trimmomatic/0.36-Java-1.8.0_144
 
-java -jar /usr/local/apps/eb/Trimmomatic/0.36-Java-1.8.0_144/trimmomatic-0.36.jar \
-PE -threads 8 $R1 $R2 \
-$R1_PAIRED_OUT $R1_UNPAIRED_OUT \
+java -jar /usr/local/apps/eb/Trimmomatic/0.36-Java-1.8.0_144/trimmomatic-0.36.jar PE -threads 8 $R1 $R2 $R1_PAIRED_OUT $R1_UNPAIRED_OUT \
 $R2_PAIRED_OUT $R2_UNPAIRED_OUT \
 ILLUMINACLIP:/usr/local/apps/eb/Trimmomatic/0.36-Java-1.8.0_144/adapters/TruSeq3-PE.fa:2:30:10:2:keepBothReads \
 LEADING:3 TRAILING:3 SLIDINGWINDOW:10:30 MINLEN:36
@@ -62,7 +60,7 @@ r2_unpaired = list(map(lambda raw: re.sub('_2.fastq','.unpaied.trimed.R2.fastq',
 
 #qsub -v reference=/path/to/reference.fa bash.sh
 for i in range(len(r1)):
-    os.system("qsub -v \"r1={},r2={},r1_paired={},r1_unpaired={},r2_paired={},r2_unpaired={}\" read_trimming.sh".format(r1[i],r2[i],r1_paired[i],r1_unpaired[i],r2_paired[i],r2_unpaired[i]))
+    os.system("qsub -v \"r1={},r2={},r1_paired_out={},r1_unpaired_out={},r2_paired_out={},r2_unpaired_out={}\" read_trimming.sh".format(r1[i],r2[i],r1_paired[i],r1_unpaired[i],r2_paired[i],r2_unpaired[i]))
     logger("Read trimming performed on {} {}".format(r1[i],r2[i]))
 
 os.remove("read_trimming.sh")
