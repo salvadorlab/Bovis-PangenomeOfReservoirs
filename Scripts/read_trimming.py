@@ -9,10 +9,10 @@ import re # we can do regular expression features with this
 import time # for time stamps
 
 #0. functions for script
-logger = lambda message: "[{}] {}".format(time.strftime('%a %H:%M:%S'),message))
+logger = lambda message: "[{}] {}".format(time.strftime('%a %H:%M:%S'),message)
 
 #1. create automatically the submission script for qsub
-logger("creating the read trimming submission script")
+print(logger("creating the read trimming submission script"))
 qsub_script = open("read_trimming.sh","w")
 qsub_script.write(
 """
@@ -61,7 +61,7 @@ r2_unpaired = list(map(lambda raw: re.sub('_2.fastq','.unpaied.trimed.R2.fastq',
 #qsub -v reference=/path/to/reference.fa bash.sh
 for i in range(len(r1)):
     os.system("qsub -v \"r1={},r2={},r1_paired_out={},r1_unpaired_out={},r2_paired_out={},r2_unpaired_out={}\" read_trimming.sh".format(r1[i],r2[i],r1_paired[i],r1_unpaired[i],r2_paired[i],r2_unpaired[i]))
-    logger("Read trimming performed on {} {}".format(r1[i],r2[i]))
+    print(logger("Read trimming performed on {} {}".format(r1[i],r2[i])))
 
 os.remove("read_trimming.sh")
-logger("All isolates submitted to the cluster")
+print(logger("All isolates submitted to the cluster"))
