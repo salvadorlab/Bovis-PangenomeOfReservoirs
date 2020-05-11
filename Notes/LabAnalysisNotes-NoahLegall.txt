@@ -30,5 +30,11 @@ DONE: Create Folder for the Written/Oral Exam
 TODO: Code for Assembly and Annotation with python
 
 #May 11th
-TODO: Code for read trimming, assembly, and annotation.
+TODO: Code for read trimming, assembly.
+TODO: Begin read trimming
 TODO: Pangenome review writing
+DONE: Code for read trimming, assembly. -> both on this github
+DONE: Begin read trimming -> did extensive debugging
+
+#May 12th
+TODO: Pangenome review writing (Pangenome studies applied to bacteria, archeabacteria, m. bovis)
