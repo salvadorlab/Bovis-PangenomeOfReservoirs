@@ -49,8 +49,8 @@ r1 = sorted(glob.glob('*trimmed.R1.fastq'))
 r2 = sorted(glob.glob('*trimmed.R2.fastq'))
 # something new i'm using. lambdas are anonymous functions that don't need a formal name. basically quick and dirty function creation
 # saves LOC if the function is relatively simple. here, I'm creating a list of output directory names.
-scaffold_file = list(map(lambda trim: re.sub('.trimmed.R1.fastq','.scaffold.fa',trim), r1))
-assemble_dir = list(map(lambda trim: re.sub('.trimmed.R1.fastq','.assembly',trim), r1))
+scaffold_file = list(map(lambda trim: re.sub('.paired.trimmed.R1.fastq','.scaffold.fa',trim), r1))
+assemble_dir = list(map(lambda trim: re.sub('.paired.trimmed.R1.fastq','_assembly',trim), r1))
 
 #qsub -v reference=/path/to/reference.fa bash.sh
 for i in range(len(r1)):
