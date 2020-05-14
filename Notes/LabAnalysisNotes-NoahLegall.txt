@@ -41,4 +41,12 @@ TODO: Pangenome review writing (Pangenome studies applied to bacteria, archeabac
 TODO: Meeting with Liliana
 TODO: Begin Assembling Genomes with SPAdes
 DONE: Meeting with Liliana
-DONE: Begin Assembling Genomes with SPAdes 
+DONE: Begin Assembling Genomes with SPAdes
+
+#May 13th
+TODO: Pangenome review writing (Pangenome studies applied to bacteria, archeabacteria, m. bovis)
+****: Just need to read papers and take notes on what has been done to analyze bacteria using pangenomes.
+****: Will use today as a writing day, but tomorrow will be solely devoted to statistic generation.
+DONE: Pangenome review writing -> I was able to write a preliminary section on pangenome studies in bacteria and archeabacteria
+
+#May 14th
