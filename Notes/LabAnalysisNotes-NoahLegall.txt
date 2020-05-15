@@ -50,3 +50,14 @@ TODO: Pangenome review writing (Pangenome studies applied to bacteria, archeabac
 DONE: Pangenome review writing -> I was able to write a preliminary section on pangenome studies in bacteria and archeabacteria
 
 #May 14th
+TODO: Stat generation using QUAST and M. bovis reference genome
+TODO: genome annotation using recent Crispell annotation.
+TODO: lab meeting.
+DONE: Stat generation using QUAST and M. bovis reference genome
+DONE: lab Meeting
+
+#May 15th
+TODO: Data Filtering for QC
+TODO: Read 3 papers on pangenome methods in study of M. bovis.
+TODO: How did filtering affect what's in the dataset?
+DONE: Data Filtering for QC -> documented here (https://github.com/salvadorlab/Bovis-PangenomeOfReservoirs/issues/2)
