@@ -3,7 +3,7 @@
  
 ##Author
 	Noah Austin Legall
-	Liliana Salvador, PhD
+	Liliana Salvador
 
 # What you will find here
 	In this repository you can track the research aims as I am working on them. Also, it shall be an easy place to retrieve files from the analysis.
