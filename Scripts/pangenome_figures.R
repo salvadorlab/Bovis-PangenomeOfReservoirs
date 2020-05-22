@@ -10,6 +10,7 @@ library("ggpubr")
 library(dplyr)
 library(ggplot2)
 library(patchwork)
+library(magrittr)
 
 ###1. Description of the data we have.
 accession_meta <- read.csv("ProjectBovisReservoir_metadata.csv", header = TRUE, stringsAsFactors = FALSE)

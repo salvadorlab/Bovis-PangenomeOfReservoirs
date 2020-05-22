@@ -63,3 +63,12 @@ TODO: How did filtering affect what's in the dataset?
 DONE: Data Filtering for QC -> documented here (https://github.com/salvadorlab/Bovis-PangenomeOfReservoirs/issues/2)
 DONE: Read 3 papers on pangenome methods in study of M. bovis. -> First ever draft of a review finished.
 DONE: How did filtering affect what's in the dataset? -> documented here (https://github.com/salvadorlab/Bovis-PangenomeOfReservoirs/issues/2)
+
+#May 21st
+TODO: update CV
+TODO: Send to Sandra, April, and Stephanie. cc Liliana.
+TODO: create readmes for project folder.
+TODO: Brief sentence about introducing to the project. 3 questions to answer all in the README. READMEs also for Scripts (inputs & outputs)
+TODO: Start writing the methods section.
+TODO: Methods section in github.
+DONE: update CV
