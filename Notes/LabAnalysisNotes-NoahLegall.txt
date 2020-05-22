@@ -64,11 +64,45 @@ DONE: Data Filtering for QC -> documented here (https://github.com/salvadorlab/B
 DONE: Read 3 papers on pangenome methods in study of M. bovis. -> First ever draft of a review finished.
 DONE: How did filtering affect what's in the dataset? -> documented here (https://github.com/salvadorlab/Bovis-PangenomeOfReservoirs/issues/2)
 
-#May 21st
+#May 21st & May 22nd
 TODO: update CV
 TODO: Send to Sandra, April, and Stephanie. cc Liliana.
 TODO: create readmes for project folder.
 TODO: Brief sentence about introducing to the project. 3 questions to answer all in the README. READMEs also for Scripts (inputs & outputs)
 TODO: Start writing the methods section.
 TODO: Methods section in github.
+TODO: Understand the assembly quality data
+****: Just want to keep this data here and think about it a bit more.
+> N50_firstpeak %>% group_by(Country) %>% summarise(country_sum = length(Country))
+# A tibble: 3 x 2
+  Country        country_sum
+  <chr>                <int>
+1 New Zealand             19
+2 United Kingdom         178
+3 USA                    134
+
+> N50_secondpeak %>% group_by(Country) %>% summarise(country_sum = length(Country))
+# A tibble: 2 x 2
+  Country        country_sum
+  <chr>                <int>
+1 New Zealand            277
+2 United Kingdom         174
+
+> N50_firstpeak %>% group_by(Host) %>% summarise(host_sum = length(Host))
+# A tibble: 2 x 2
+  Host          host_sum
+  <chr>            <int>
+1 NON-RESERVOIR        5
+2 RESERVOIR          326
+
+> N50_secondpeak %>% group_by(Host) %>% summarise(host_sum = length(Host))
+# A tibble: 2 x 2
+  Host          host_sum
+  <chr>            <int>
+1 NON-RESERVOIR       50
+2 RESERVOIR          401
+****: Can explain the N50 peaks now, might just suggest filtering based on common sense practice.
 DONE: update CV
+DONE: Send to Sandra, April, and Stephanie. cc Liliana.
+DONE: create readmes for project folder.
+DONE: Brief sentence about introducing to the project. 3 questions to answer all in the README. READMEs also for Scripts (inputs & outputs)
