@@ -117,3 +117,6 @@ I'm not seeing any papers that devise a way to filter out low quality genomes. I
 The closest I got to finding a N50 cutoff was this bioarchive paper:
 https://www.biorxiv.org/content/10.1101/2020.01.27.919118v1.full
 A Vibrio Cholerae Core Genome Multilocus Sequence Typing Scheme to Facilitate the Epidemiological Study of Cholera
+DONE: Rerun trimming software to match what was done in the Brazil paper
+DONE: Investigate how QUAST metrics are used as thresholds in bacterial assemblies
+DONE: Begin work on methods section
