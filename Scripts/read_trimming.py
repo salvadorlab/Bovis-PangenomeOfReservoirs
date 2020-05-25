@@ -41,7 +41,7 @@ module load Trimmomatic/0.36-Java-1.8.0_144
 java -jar /usr/local/apps/eb/Trimmomatic/0.36-Java-1.8.0_144/trimmomatic-0.36.jar PE -threads 8 $R1 $R2 $R1_PAIRED_OUT $R1_UNPAIRED_OUT \
 $R2_PAIRED_OUT $R2_UNPAIRED_OUT \
 ILLUMINACLIP:/usr/local/apps/eb/Trimmomatic/0.36-Java-1.8.0_144/adapters/TruSeq3-PE.fa:2:30:10:2:keepBothReads \
-LEADING:3 TRAILING:3 SLIDINGWINDOW:10:30 MINLEN:36
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:36
 
 rm $R1_UNPAIRED_OUT $R2_UNPAIRED_OUT
 """

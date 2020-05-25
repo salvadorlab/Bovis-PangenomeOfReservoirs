@@ -106,3 +106,14 @@ DONE: update CV
 DONE: Send to Sandra, April, and Stephanie. cc Liliana.
 DONE: create readmes for project folder.
 DONE: Brief sentence about introducing to the project. 3 questions to answer all in the README. READMEs also for Scripts (inputs & outputs)
+
+#May 25th
+TODO: Rerun trimming software to match what was done in the Brazil paper
+****: This is pretty trivial, but I think the command can lead to better reads in general.
+TODO: Begin work on methods section
+TODO: Investigate how QUAST metrics are used as thresholds in bacterial assemblies
+****: This is tough because I can't find how papers with Mycobacterium deal with filtering based on genome assembly.
+I'm not seeing any papers that devise a way to filter out low quality genomes. I think in my methods section I will just write my own and have a reviewer tell me it doesn't make sense
+The closest I got to finding a N50 cutoff was this bioarchive paper:
+https://www.biorxiv.org/content/10.1101/2020.01.27.919118v1.full
+A Vibrio Cholerae Core Genome Multilocus Sequence Typing Scheme to Facilitate the Epidemiological Study of Cholera
