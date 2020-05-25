@@ -1,7 +1,7 @@
 #Noah A. Legall
 #Salvador Lab
 #Description: Trim all the isolates using trimmomatic
-#Last Update: May 11th 2020
+#Last Update: May 22nd 2020
 import sys # use to access arguments
 import os # use in order to call commands from the terminal script is called in
 import glob # grabs files by name and puts them in a list
