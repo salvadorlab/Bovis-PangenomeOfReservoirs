@@ -137,3 +137,4 @@ TODO: Read 'A guide to machine learning for bacterial host attribution using gen
 ****: This was very fascinating. I'll discuss with Liliana the possibility of using the data generated in this project to predict reservoir or non-reservoir.
 TODO: Email Liliana about progress.
 DONE: Read 'A guide to machine learning for bacterial host attribution using genome sequence data' (Lupolova et al., 2019)
+DONE: Email Liliana about progress.
