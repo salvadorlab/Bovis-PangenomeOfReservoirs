@@ -138,3 +138,10 @@ TODO: Read 'A guide to machine learning for bacterial host attribution using gen
 TODO: Email Liliana about progress.
 DONE: Read 'A guide to machine learning for bacterial host attribution using genome sequence data' (Lupolova et al., 2019)
 DONE: Email Liliana about progress.
+
+#May 28th
+TODO: Write Review Outline
+TODO: Compile papers in Mendeley for this project
+TODO: If GACRC fixes the queue, then submit jobs for assembly
+DONE: Write Review Outline -> available on the Dropbox folder
+DONE: Compile papers in Mendeley for this project -> I started doing this for 2 sections of the review
