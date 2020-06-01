@@ -145,3 +145,13 @@ TODO: Compile papers in Mendeley for this project
 TODO: If GACRC fixes the queue, then submit jobs for assembly
 DONE: Write Review Outline -> available on the Dropbox folder
 DONE: Compile papers in Mendeley for this project -> I started doing this for 2 sections of the review
+
+#May 29th
+TODO: Continue Writing/Editing the Review
+****: GACRC is now back up and running :)
+DONE: Continue Writing/Editing the Review -> All day endeavor.
+
+#June 1st
+TODO: Statistics on Assemblies
+TODO: Review Writing
+DONE: Review Writing -> Wrote two sections, The Pangenome Inference pipeline & Pangenome Metrics
