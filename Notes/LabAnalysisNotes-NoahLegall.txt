@@ -155,3 +155,20 @@ DONE: Continue Writing/Editing the Review -> All day endeavor.
 TODO: Statistics on Assemblies
 TODO: Review Writing
 DONE: Review Writing -> Wrote two sections, The Pangenome Inference pipeline & Pangenome Metrics
+DONE: Statistics on Assemblies
+
+#June 2nd
+TODO: literature review on filtering of Mycobacterium assemblies.
+TODO: filter genomes
+****:
+N50 > 45,000
+Total Length < 5Mb
+65.0 < GC Content < 65
+Genome Fraction > 97
+TODO: begin annotation with Crispell new M. bovis genome annotation.
+****: https://www.biorxiv.org/content/10.1101/757823v1.full.pdf
+Updated functional annotation of the Mycobacterium bovis AF2122/97 reference genome.
+DONE: literature review on filtering of Mycobacterium assemblies. -> it seems like no one has tried to filter genomes by assembly metrics. Closest I got was this paper on bioarxiv:
+****: https://www.biorxiv.org/content/10.1101/2020.01.27.919118v1.full
+A Vibrio Cholerae Core Genome Multilocus Sequence Typing Scheme to Facilitate the Epidemiological Study of Cholera
+Since I can't find anything else, I'll just record my own filtering scheme.
