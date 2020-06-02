@@ -50,7 +50,7 @@ prefix = list(map(lambda assemb: re.sub('.scaffold.fa','',assemb), assembly))
 
 #qsub -v reference=/path/to/reference.fa bash.sh
 for i in range(len(assembly)):
-    os.system("qsub -v \"assembly={},out={},prefix={}\" annotation.sh".format(assembly[i],annot_dir[i],prefix[i]))
+    os.system("qsub -v \"assembly={},out={},prefix={}\" annotation.sh".format(annot_dir[i],prefix[i],assembly[i]))
     print(logger("{} is being annotated".format(assembly[i])))
 
 os.remove("annotation.sh")
