@@ -172,3 +172,9 @@ DONE: literature review on filtering of Mycobacterium assemblies. -> it seems li
 ****: https://www.biorxiv.org/content/10.1101/2020.01.27.919118v1.full
 A Vibrio Cholerae Core Genome Multilocus Sequence Typing Scheme to Facilitate the Epidemiological Study of Cholera
 Since I can't find anything else, I'll just record my own filtering scheme.
+
+#June 4th
+TODO: Begin genome annotation
+****: been having trouble getting this script to work. will use a previous script to get the job done.
+TODO: Meeting this afternoon
+DONE: Begin genome annotation
