@@ -61,4 +61,4 @@ accession_bar <- filtered_accession_metadata %>% group_by(Species, Host) %>%summ
 accession_bar <- accession_bar[order(accession_bar$Host,accession_bar$no_in_data),]
 #A bar plot separated by species, colored by reservoir status.
 ggbarplot(accession_bar,"Species","no_in_data", fill = "Host", color = "Host",palette = c("steelblue","red"), xlab = "Host Species", ylab = "No. of isolates", lab.size = 10) + theme(axis.text.x = element_text(angle = 45, hjust = 1),axis.text=element_text(size = 15), axis.title = element_text(size = 18)) + scale_y_log10()
-
+write.csv(assembly_stats,file = "filtered_mbovis_stats.csv")
