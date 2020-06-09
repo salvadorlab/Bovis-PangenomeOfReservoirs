@@ -178,3 +178,16 @@ TODO: Begin genome annotation
 ****: been having trouble getting this script to work. will use a previous script to get the job done.
 TODO: Meeting this afternoon
 DONE: Begin genome annotation
+DONE: Meeting this afternoon
+
+#June 8th
+TODO: Pangenome Inference for Reservoir & non Reservoir
+TODO: Begin coding the Homologous Recombination Script
+TODO: Update the Methods Section.
+DONE: Start Pangenome Inference
+DONE: Upgrade the Methods Section.
+
+#June 9th
+TODO: Write Methods Section
+TODO: Inspect Pangenome Results
+TODO: Begin Coding the aims analysis 
