@@ -190,4 +190,14 @@ DONE: Upgrade the Methods Section.
 #June 9th
 TODO: Write Methods Section
 TODO: Inspect Pangenome Results
-TODO: Begin Coding the aims analysis 
+TODO: Update 2020 timeline
+TODO: Begin Coding the aims analysis
+DONE: Write Methods Section -> I was able to write a section on how the Accessory Genome will be analyzed.
+DONE: Inspect Pangenome Results -> Run looks good, will do accessory genome analysis tomorrow
+DONE: Begin Coding the aims analysis -> spent day reading and thinking about next steps.
+DONE: Update 2020 timeline.
+
+#June 10th:
+TODO: Accessory Genome Hierarchical Clustering, logistic PCA
+TODO: Scoary Analysis (Reservoir/Non-Reservoir)
+TODO: Create LCBs from ProgressiveMauve algorithm
