@@ -197,7 +197,7 @@ DONE: Inspect Pangenome Results -> Run looks good, will do accessory genome anal
 DONE: Begin Coding the aims analysis -> spent day reading and thinking about next steps.
 DONE: Update 2020 timeline.
 
-#June 10th:
+#June 10th
 TODO: Accessory Genome Hierarchical Clustering, logistic PCA
 TODO: Scoary Analysis (Reservoir/Non-Reservoir)
 ****:
@@ -206,7 +206,7 @@ TODO: Scoary Analysis (Reservoir/Non-Reservoir)
 #PBS -N scoary_run
 #PBS -l nodes=1:ppn=20:AMD
 #PBS -l walltime=48:00:00
-#PBS -l mem=20gb
+#PBS -l mem=50gb
 #PBS -M noahaus@uga.edu
 #PBS -m abe
 
@@ -216,3 +216,10 @@ scoary -g mbovis_prab.csv -t mbovis_scoary.csv --threads 16
 TODO: Create Basis for Phylogenetic Analysis
 DONE: Create Basis for Phylogenetic Analysis -> This was done quick and dirty with FastTree to just have a tree to base analysis on. The results from this should not be taken as law
 DONE: Scoary Analysis (Reservoir/Non-Reservoir) -> running on the cluster. Scoary needs a one to one mapping of genomes to traits. will need to do further analysis of results.
+
+#June 11th
+TODO: Color The PCA I created
+TODO: Work on the Pangenome Review
+TODO: Look into Data for M. tuberculosis on NCBI SRA.
+DONE: Color the PCA I created -> Did an initial coloring today, but will need to focus on this a bit more.
+DONE: Look into Data for M. tuberculosis on NCBI SRA. -> I provided a manually curated dataset for M. tuberculosis by country. Will provide more detailed info for Liliana tomorrow.
