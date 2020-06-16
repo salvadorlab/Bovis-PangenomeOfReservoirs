@@ -223,3 +223,16 @@ TODO: Work on the Pangenome Review
 TODO: Look into Data for M. tuberculosis on NCBI SRA.
 DONE: Color the PCA I created -> Did an initial coloring today, but will need to focus on this a bit more.
 DONE: Look into Data for M. tuberculosis on NCBI SRA. -> I provided a manually curated dataset for M. tuberculosis by country. Will provide more detailed info for Liliana tomorrow.
+
+#June 15th
+TODO: Prepare presentation for Thursday
+TODO: Begin creating Phylogenetic tree (NJ method.)
+TODO: Add Citations to the Pangenome Review.
+DONE: Prepare presentation for Thursday -> will work on this more, but the basic structure is there.
+DONE: Add Citations to the Pangenome Review.
+
+#June 16th
+TODO: Add The citations to the review
+TODO: meeting with Liliana
+TODO: snp-sites on WGS alignment, then Raxml.
+TODO: Clean up the logisticPCA for presentation readiness.

@@ -62,3 +62,56 @@ accession_bar <- accession_bar[order(accession_bar$Host,accession_bar$no_in_data
 #A bar plot separated by species, colored by reservoir status.
 ggbarplot(accession_bar,"Species","no_in_data", fill = "Host", color = "Host",palette = c("steelblue","red"), xlab = "Host Species", ylab = "No. of isolates", lab.size = 10) + theme(axis.text.x = element_text(angle = 45, hjust = 1),axis.text=element_text(size = 15), axis.title = element_text(size = 18)) + scale_y_log10()
 write.csv(assembly_stats,file = "filtered_mbovis_stats.csv")
+
+###4. Heatmap of data 
+gene_pres_abs <- read.csv("mbovis_prab.csv", header = TRUE, stringsAsFactors = FALSE, row.names = "Gene")
+accessory_genome <- gene_pres_abs[!(is.na(gene_pres_abs$Accessory.Fragment)),]
+core_genome <- gene_pres_abs[is.na(gene_pres_abs$Accessory.Fragment),]
+
+accessory_genome_non_unique <- accessory_genome[accessory_genome$No..isolates > 1 & accessory_genome$Annotation != "hypothetical protein",]
+auxil <- gene_pres_abs %>% select(2:14)
+
+accessory_pa <- accessory_genome_non_unique %>% select(14:(ncol(accessory_genome_non_unique)))
+##edit the gene presence absence to be numeric.
+accessory_pa[!(accessory_pa=="")] <- 1
+accessory_pa[accessory_pa==""] <- 0
+
+##let's transpose the dataframe by turning it into a matrix first. 
+pa_transpose <- t(data.matrix(accessory_pa))
+heatmap(pa_transpose, scale = "none", Rowv = NA, Colv = NA, col = c("white","blue"), main = "Accessory Genome Composition")
+##Would be nice to merge a core genome phylogeny to this metadata 
+
+pa_dist_jaccard <- proxy::dist(pa_transpose,method = "Jaccard")
+
+
+mthds <- c( "average", "single", "complete", "ward")
+names(mthds) <- c( "average", "single", "complete", "ward")
+
+jaccard_ac <- function(x) {
+  cluster::agnes(pa_dist_jaccard, method = x)$ac
+}
+
+best_linkage_euclidean <- map_dbl(mthds, euclidean_ac)
+best_linkage_jaccard <- map_dbl(mthds, jaccard_ac)
+
+prab_hc <- hclust(pa_dist_jaccard, method = "ward.D" )
+plot(prab_hc, cex = 0.4)
+rect.hclust(prab_hc, k = 3, border = 2:5)
+prab_hc_viz <- plot(prab_hc, cex = 0.4);rect.hclust(prab_hc, k = 3, border = 2:5)
+
+mbov_meta <- read.csv("ProjectBovisReservoir_metadata.csv",header = TRUE)
+
+prab_dend <- as.dendrogram(prab_hc) %>% color_branches(k=3) %>% hang.dendrogram(hang_height=0.1)
+prab_dend_labels <- as.data.frame(labels(prab_dend)) %>% left_join(mbov_meta,by=c("labels(prab_dend)" = "??..Sample"))
+prab_species <- prab_dend_labels$Host
+
+labels_colors(prab_dend) <- rainbow_hcl(2)[sort_levels_values(as.numeric(prab_dend_labels$Host))]
+labels(prab_dend) <- prab_dend_labels$Host
+labels_cex(prab_dend) <- 0.4
+reservoir_viz <- plot(prab_dend, horiz = TRUE)
+
+prab_dend <- as.dendrogram(prab_hc) %>% color_branches(k=3) %>% hang.dendrogram(hang_height=0.1)
+
+logsvd_model = logisticSVD(pa_transpose, k = 3)
+mbov_meta <- read.csv("mbovis_scoary.csv",header = TRUE)
+plot(logsvd_model, type = "scores") + geom_point(aes(colour = mbov_meta$Host))
