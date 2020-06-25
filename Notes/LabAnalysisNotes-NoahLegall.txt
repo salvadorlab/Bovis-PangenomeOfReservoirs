@@ -236,3 +236,28 @@ TODO: Add The citations to the review
 TODO: meeting with Liliana
 TODO: snp-sites on WGS alignment, then Raxml.
 TODO: Clean up the logisticPCA for presentation readiness.
+DONE: Add The citations to the review
+DONE: Clean up the logisticPCA for presentation readiness.
+DONE: meeting with Liliana
+DONE: snp-sites on WGS alignment, then Raxml. -> Created the Neighbor joining tree
+
+#June 17th
+TODO: Update CV
+TODO: Sign up for modules
+TODO: Update github folders
+TODO: Send Pangenome Review to Liliana
+TODO: further research on HR and positive selection
+DONE: Update CV
+DONE: update github folders
+DONE: Send Pangenome review to Liliana
+DONE: further research on HR and positive selection -> I need to create an ml tree, then feed it to ClonalFrameML
+
+#June 25th
+TODO: Lab Presentation on Research Progress
+TODO: Find tools associated with sliding window for Homologous Recombination/Positive Selection
+DONE: Lab Presentation on Research Progress
+DONE: Find tools associated with sliding window for Homologous Recombination/Positive Selection -> I have a slide where I record that information.
+
+#June 26th
+TODO: Figure out the percentage of what the 3 PCAs account for in R
+TODO: Work on labelling the dendrogram HC

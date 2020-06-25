@@ -82,7 +82,7 @@ heatmap(pa_transpose, scale = "none", Rowv = NA, Colv = NA, col = c("white","blu
 ##Would be nice to merge a core genome phylogeny to this metadata 
 
 pa_dist_jaccard <- proxy::dist(pa_transpose,method = "Jaccard")
-
+pa_dist_euclid <- dist(pa_transpose)
 
 mthds <- c( "average", "single", "complete", "ward")
 names(mthds) <- c( "average", "single", "complete", "ward")
@@ -90,6 +90,11 @@ names(mthds) <- c( "average", "single", "complete", "ward")
 jaccard_ac <- function(x) {
   cluster::agnes(pa_dist_jaccard, method = x)$ac
 }
+
+euclidean_ac <- function(x) {
+  cluster::agnes(pa_dist_euclid, method = x)$ac
+}
+
 
 best_linkage_euclidean <- map_dbl(mthds, euclidean_ac)
 best_linkage_jaccard <- map_dbl(mthds, jaccard_ac)
@@ -112,6 +117,45 @@ reservoir_viz <- plot(prab_dend, horiz = TRUE)
 
 prab_dend <- as.dendrogram(prab_hc) %>% color_branches(k=3) %>% hang.dendrogram(hang_height=0.1)
 
+
+mbov_meta <- read.csv("filtered_isolate_list.csv",header = TRUE)
 logsvd_model = logisticSVD(pa_transpose, k = 3)
-mbov_meta <- read.csv("mbovis_scoary.csv",header = TRUE)
-plot(logsvd_model, type = "scores") + geom_point(aes(colour = mbov_meta$Host))
+
+hostgg <- plot(logsvd_model, type = "scores") + 
+            geom_point(aes(colour = mbov_meta$Host)) + 
+            ggtitle("M. bovis Accessory Genome Clustering") +
+            theme_bw()
+hostgg$labels$colour <- "Reservoir Status"
+
+countrygg <- plot(logsvd_model, type = "scores") + geom_point(aes(colour = mbov_meta$Country)) + ggtitle("M. bovis Accessory Genome Clustering")
+countrygg$labels$colour <- "Country of Origin"
+
+wildlifegg <- plot(logsvd_model, type = "scores") + geom_point(aes(colour = mbov_meta$Species)) + ggtitle("M. bovis Accessory Genome Clustering")
+wildlifegg$labels$colour <- "Species"
+
+pdf("logisticPCA_AccessoryGenome.pdf")
+hostgg
+countrygg
+wildlifegg
+dev.off()
+
+
+mbov.pca <- prcomp(pa_transpose,center = TRUE,scale. = TRUE)
+plot(mbov.pca, type = "scores") + geom_point(aes(colour = mbov_meta$Species))
+fviz_pca_ind(mbov.pca,geom = "point",habillage = mbov_meta$Species) + xlim(-10,20)
+
+mbov.pcoa <- cmdscale(pa_dist_jaccard,k=3)
+mbov.pcoa <- as.data.frame(mbov.pcoa)
+mbov.pcoa$Host <- mbov_meta$Host
+mbov.pcoa$Country <- mbov_meta$Country
+mbov.pcoa$Species <- mbov_meta$Species
+names(mbov.pcoa)[1:3] <- c('PC1', 'PC2','PC3')
+
+Tr_PcoA <- ggplot(mbov.pcoa, aes(x = PC2, y = PC3, colour = Country, 
+                                 label = row.names(mbov.pcoa)))
+Tr_PcoA + 
+  geom_point() +
+  ggtitle("PCoA of M. bovis Accessory Genome Distance Matrix") +
+  theme_bw()
+
+plot_ly(x=mbov.pcoa$PC1, y=mbov.pcoa$PC2, z=mbov.pcoa$PC3, type="scatter3d", mode="markers", color=mbov.pcoa$Host)
