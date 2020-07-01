@@ -262,4 +262,9 @@ DONE: Find tools associated with sliding window for Homologous Recombination/Pos
 TODO: Figure out the percentage of what the 3 PCAs account for in R
 TODO: Work on labelling the dendrogram HC
 DONE: Figure out the percentage of what the 3 PCAs account for in R -> computed the percent explained variance.
-DONE: Work on labelling the dendrogram HC -> I was close and made progress, but need to figure out a better way to visualize this. perhaps its ordering things in a strange way. 
+DONE: Work on labelling the dendrogram HC -> I was close and made progress, but need to figure out a better way to visualize this. perhaps its ordering things in a strange way.
+
+#June 29th
+TODO: Re-read Revisiting the Evolution of Mycobacterium bovis by Serge Mostowy.
+TODO: Further investigate tools for HomoRecomb and Positive Selection
+TODO: Start Daily Thesis Goal Journal
