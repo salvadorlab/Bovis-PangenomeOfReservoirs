@@ -169,19 +169,19 @@ pcoa_scree
 dev.off()
 
 #PCoA with different groupings explained. 
-hostgg <- ggplot(mbov.pcoa, aes(x = PC2, y = PC3, colour = Host, label = row.names(mbov.pcoa))) + 
+hostgg <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Host, label = row.names(mbov.pcoa))) + 
   geom_point() + 
   theme_bw()
 
-speciesgg <- ggplot(mbov.pcoa, aes(x = PC2, y = PC3, colour = Species, label = row.names(mbov.pcoa))) + 
+speciesgg <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Species, label = row.names(mbov.pcoa))) + 
   geom_point() + 
   theme_bw()
 
-countrygg <- ggplot(mbov.pcoa, aes(x = PC2, y = PC3, colour = Country, label = row.names(mbov.pcoa))) + 
+countrygg <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Country, label = row.names(mbov.pcoa))) + 
   geom_point() + 
   theme_bw()
 
-wildlifegg <- ggplot(mbov.pcoa, aes(x = PC2, y = PC3, colour = Cattle, label = row.names(mbov.pcoa))) + 
+wildlifegg <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Cattle, label = row.names(mbov.pcoa))) + 
   geom_point() + 
   theme_bw()
 
