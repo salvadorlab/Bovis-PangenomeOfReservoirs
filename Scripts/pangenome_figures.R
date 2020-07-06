@@ -67,7 +67,7 @@ gene_pres_abs <- read.csv("mbovis_prab.csv", header = TRUE, stringsAsFactors = F
 accessory_genome <- gene_pres_abs[!(is.na(gene_pres_abs$Accessory.Fragment)),]
 core_genome <- gene_pres_abs[is.na(gene_pres_abs$Accessory.Fragment),]
 
-accessory_genome_non_unique <- accessory_genome[accessory_genome$No..isolates > 1,]
+accessory_genome_non_unique <- accessory_genome
 auxil <- gene_pres_abs %>% select(2:14)
 
 accessory_pa <- accessory_genome_non_unique %>% select(14:(ncol(accessory_genome_non_unique)))
@@ -212,4 +212,9 @@ mbov.pcoa_5D
 dev.off()
 
 pcoa_patch <- mbov.pcoa_5D | pcoa_scree
-#### 7.
+#### 7. GLM for Reservoir Status w/ Accessory Genes
+#add the response variable
+pa_transpose <- as.data.frame(pa_transpose)
+pa_transpose$Host <- mbov_meta$Host
+prab.glm <- glm(formula = Host ~ ., data = pa_transpose,family = binomial(), maxit=100)
+
