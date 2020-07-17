@@ -268,3 +268,23 @@ DONE: Work on labelling the dendrogram HC -> I was close and made progress, but 
 TODO: Re-read Revisiting the Evolution of Mycobacterium bovis by Serge Mostowy.
 TODO: Further investigate tools for HomoRecomb and Positive Selection
 TODO: Start Daily Thesis Goal Journal
+DONE: Start Daily Thesis Goal Journal
+DONE: Further investigate tools for HomoRecomb and Positive Selection -> two tools each
+
+#July 6th
+TODO: Infer areas of recombination using Gubbins
+****: Will probably ask the people at GACRC to upload gubbins as personal software, or how to add conda environments on the cluster for a job.
+DONE: Infer areas of recombination using Gubbins -> doing it currently, but it's taking some time on my machine.
+
+#July 9th
+TODO: Create jobs to perform Homologous recombination with gubbins.
+TODO: Review the Layout of nature papers for reviews
+****: Nature Methods, seems to only accept novel methods but with the occasional review article like "T cell antigen discovery"
+TODO: Further explore the PCA to explain the batch effects
+DONE: Create jobs to perform Homologous recombination with gubbins. -> waiting for the jobs to be picked up by sapelo2
+
+#July 16th
+TODO: Lab meeting
+TODO: Visualize Homologous Recombination Results
+****: Seems like there is some evidence of homologous recombination based on clade 
+TODO: Continue Work on Modules
