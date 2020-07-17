@@ -131,7 +131,7 @@ reservoir_viz <- plot(prab_dend, horiz = TRUE)
 prab_dend <- as.dendrogram(prab_hc) %>% color_branches(k=3) %>% hang.dendrogram(hang_height=0.1)
 
 
-mbov_meta <- read.csv("filtered_isolate_list.csv",header = TRUE)
+mbov_meta <- read.csv("/Users/noah_/Documents/filtered_isolate_list.csv",header = TRUE, stringsAsFactors = FALSE)
 
 #### 6. PCoA
 #compute percent explained variance
@@ -212,9 +212,88 @@ mbov.pcoa_5D
 dev.off()
 
 pcoa_patch <- mbov.pcoa_5D | pcoa_scree
-#### 7. GLM for Reservoir Status w/ Accessory Genes
+
+#### 7. Association Testing
 #add the response variable
 pa_transpose <- as.data.frame(pa_transpose)
-pa_transpose$Host <- mbov_meta$Host
-prab.glm <- glm(formula = Host ~ ., data = pa_transpose,family = binomial(), maxit=100)
+pa_transpose$y <- mbov_meta$Host
 
+reservoir_gene_independence <- function(prab){
+  prab_col <- colnames(prab)
+  cog <- c()
+  chi_sq <- c()
+  fisher <- c()
+  mi <- c()
+  for(i in 1:length(prab_col)){
+    if(prab_col[i] == "y"){
+      next()
+    }else{
+      tbl <- table(prab[,i],prab$y)
+      chi_sq[i] <- chisq.test(tbl)$p.value
+      fisher[i] <- fisher.test(tbl)$p.value
+      cog[i] <- prab_col[i]
+      mi[i] <- mutinformation(prab[,i],prab$y)
+    }
+  }
+  return(data.frame(cog,chi_sq,fisher,mi))
+  
+}
+
+mbov_gene_assoc <- reservoir_gene_independence(pa_transpose)
+
+#### 8. Why do PC1 and PC2 create those stripes?
+pc1_pc2 <- ggplot(mbov.pcoa, aes(x = PC1, y = PC2, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+pc1_pc3 <- ggplot(mbov.pcoa, aes(x = PC1, y = PC3, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+pc1_pc4 <- ggplot(mbov.pcoa, aes(x = PC1, y = PC4, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+pc2_pc3 <- ggplot(mbov.pcoa, aes(x = PC2, y = PC3, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+pc2_pc4 <- ggplot(mbov.pcoa, aes(x = PC2, y = PC4, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+pc3_pc4 <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+#let's see if this is due more so to batch effects
+mbov_full_meta <- read.csv("../../../Documents/Mbovis_meta.csv", header = TRUE,stringsAsFactors = FALSE)
+mbov_meta <- read.csv("/Users/noah_/Documents/filtered_isolate_list.csv",header = TRUE, stringsAsFactors = FALSE)
+upd_mbov_meta <- mbov_meta %>% left_join(mbov_full_meta %>% select(Experiment,Instrument,Center.Name,Collection_Date), by = c("Sample" = "Experiment"))
+mbov_meta <- upd_mbov_meta
+mbov.pcoa$Instrument <- mbov_meta$Instrument
+mbov.pcoa$Genome_Center <- mbov_meta$Center.Name
+mbov.pcoa$Date <- mbov_meta$Collection_Date
+
+countrygg <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Country, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+speciesgg <- ggplot(mbov.pcoa, aes(x = PC3, y = PC4, colour = Species, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+#Did this to show the clean clustering 
+(countrygg / speciesgg)| pcoa_scree
+
+#Let's see how the assembly stats influence the PC's
+assembly_stats$name <- gsub(".scaffold","",assembly_stats$ï..Assembly)
+mbov.pcoa$sample <- row.names(mbov.pcoa)
+mbov.pcoa <- mbov.pcoa %>% left_join(assembly_stats,by = c("sample" = "name") ) 
+
+ggplot(mbov.pcoa, aes(x = PC1, y = PC2, colour = Date, label = row.names(mbov.pcoa))) + 
+  geom_point() + 
+  theme_bw()
+
+#The year doesn't quite seem to explain PC2, but add's further
+# contextualization to why the clusters look like this too
