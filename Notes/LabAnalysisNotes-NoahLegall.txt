@@ -286,5 +286,23 @@ DONE: Create jobs to perform Homologous recombination with gubbins. -> waiting f
 #July 16th
 TODO: Lab meeting
 TODO: Visualize Homologous Recombination Results
-****: Seems like there is some evidence of homologous recombination based on clade 
+****: Seems like there is some evidence of homologous recombination based on clade
 TODO: Continue Work on Modules
+DONE: Lab meeting
+DONE: Visualize Homologous Recombination Results
+DONE: Continue Work on Modules
+
+#July 17th
+TODO: Upload Sweed to find regions of positive selection
+TODO: Work again on the pangenome review
+DONE: Upload Sweed to find regions of positive selection
+DONE: Work again on the pangenome review
+
+#July 20th
+TODO: Outline page of Microsoft Fellowship
+TODO: Update the Review
+DONE: Outline page of Microsoft Fellowship
+DONE: Update the Review
+
+#July 21st
+TODO: Begin writing One Page Summary

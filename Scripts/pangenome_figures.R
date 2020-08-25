@@ -291,7 +291,7 @@ assembly_stats$name <- gsub(".scaffold","",assembly_stats$ï..Assembly)
 mbov.pcoa$sample <- row.names(mbov.pcoa)
 mbov.pcoa <- mbov.pcoa %>% left_join(assembly_stats,by = c("sample" = "name") ) 
 
-ggplot(mbov.pcoa, aes(x = PC1, y = PC2, colour = Date, label = row.names(mbov.pcoa))) + 
+ggplot(mbov.pcoa, aes(x = PC1, y = PC2, colour = Instrument, label = row.names(mbov.pcoa))) + 
   geom_point() + 
   theme_bw()
 
