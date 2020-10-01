@@ -1,0 +1,366 @@
+---
+title: "M. bovis Pangenome Analysis"
+author: "Noah Legall"
+date: "9/22/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Introduction
+
+## Figures
+
+# 1. Data Description
+
+```{r}
+###1. This is the metadata we pulled from NCBI. Make sure your working directory is the Resource folder on this 
+library(ggpubr)
+library(dplyr)
+accession_meta <- read.csv("ProjectBovisReservoir_metadata.csv", header = TRUE, stringsAsFactors = FALSE)
+
+accession_bar <- accession_meta %>% group_by(Species, Host) %>% summarise(no_in_data = length(Species))
+
+accession_bar <- accession_bar[order(accession_bar$Host,accession_bar$no_in_data),]
+
+#A bar plot separated by species, colored by reservoir status.
+ggbarplot(accession_bar,"Species","no_in_data", fill = "Host", color = "Host",palette = c("steelblue","red"), xlab = "Host Species", ylab = "No. of isolates", lab.size = 10) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),axis.text=element_text(size = 15), axis.title = element_text(size = 18)) +
+scale_y_log10()
+```
+
+# 2. Assembly Stat Distributions
+
+```{r}
+library(patchwork)
+library(magrittr)
+setwd("/Users/noah_/Documents/Bovis-PangenomeOfReservoirs/Resources/")
+assembly_stats <- read.csv("mbovis_transposed_report.csv",header = TRUE)
+assembly_stats %<>%
+  filter(N50 > 45000) %>%
+  filter(Total.length < 5000000) %>%
+  filter(GC.... > 65.50 & GC.... < 65.6) %>%
+  filter(Genome.fraction.... > 97.0)
+
+N50_hist <- assembly_stats %>% ggplot(aes(x=N50)) +
+                   geom_histogram(binwidth = 5000, fill = "steelblue", color = "steelblue") +
+                   theme_light()
+
+genome_length_hist <- assembly_stats  %>% ggplot(aes(x=Total.length)) +
+  geom_histogram(binwidth = 1000, fill = "steelblue", color = "steelblue") +
+  theme_light()
+
+GC_hist <- assembly_stats %>% ggplot(aes(x=GC....)) +
+  geom_histogram(binwidth = 0.005, fill = "steelblue", color = "steelblue") +
+  theme_light()
+
+genome_frac_hist <- assembly_stats  %>% ggplot(aes(x=Genome.fraction....)) + 
+  geom_histogram(binwidth = 0.01, fill = "steelblue", color = "steelblue") +
+  theme_light()
+
+(N50_hist | genome_length_hist)/(GC_hist | genome_frac_hist)
+
+```
+
+# 3. Accessory Genome Presence/Absence Matrix
+
+```{r}
+library(dplyr)
+gene_pres_abs <- read.csv("mbovis_prab.csv", header = TRUE, stringsAsFactors = FALSE, row.names = "Gene")
+accessory_genome <- gene_pres_abs[!(is.na(gene_pres_abs$Accessory.Fragment)),]
+core_genome <- gene_pres_abs[is.na(gene_pres_abs$Accessory.Fragment),]
+
+accessory_genome_non_unique <- accessory_genome
+auxil <- gene_pres_abs %>% select(2:14)
+
+accessory_pa <- accessory_genome_non_unique %>% select(14:(ncol(accessory_genome_non_unique)))
+##edit the gene presence absence to be numeric.
+accessory_pa[!(accessory_pa=="")] <- 1
+accessory_pa[accessory_pa==""] <- 0
+
+##let's transpose the dataframe by turning it into a matrix first. 
+pa_transpose <- t(data.matrix(accessory_pa))
+
+```
+
+
+# 4. Principal Component Analysis 
+```{r}
+# for this we just need to convert the full PRAB matrix into a PCA plot. I want to know about the clustering, and what variables contribute to that clustering. - per the suggestion of Dr. Liu
+library("ggplot2")
+prab_pca <- prcomp(pa_transpose)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(pa_transpose)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_bw()
+```
+
+```{r}
+# I am curious how the clustering looks for the top 4 PC's. For the PCoA, we notice some strange clustering in the first 2 components, so I want to investigate if that is true as well. 
+
+mbov_full_meta <- read.csv("../../../Documents/Mbovis_meta.csv", header = TRUE,stringsAsFactors = FALSE)
+mbov_meta <- read.csv("/Users/noah_/Documents/filtered_isolate_list.csv",header = TRUE, stringsAsFactors = FALSE)
+upd_mbov_meta <- mbov_meta %>% left_join(mbov_full_meta %>% select(Experiment,Instrument,Center.Name,Collection_Date), by = c("Sample" = "Experiment"))
+mbov_meta <- upd_mbov_meta
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+scores$instrument <- mbov_meta$Instrument
+
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+
+#looks just like the PCoA! so I think I will just work with this hence forth.
+```
+
+```{r}
+#Let's explore the 1st two PC's to see what can be done to resolve the clustering confusion.
+
+# Let's relook at PC1 + PC2
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC2, fill = species, col = species)) +
+  geom_point() +
+  theme_minimal()
+```
+
+Why is this weird to me? It seems that by looking at the first 2 PC's, the separation of classes just don't make sense. PC1 isn't terrible, it can at least describe the some differences between the points based on country, but on PC2, its saying there are 3 different classes of isolates that are similar across all the countries, even with little to no overlap.
+
+```{r}
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = instrument, col = instrument)) +
+  geom_point() +
+  theme_minimal()
+
+ggplot(as.data.frame(scores),aes(x=PC2,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+```
+It seems that PC2 is the strange actor in this analysis. I observed this during the summer and just opted to remove PC's 1 & 2. Without knowing too much however, I think it might be harder to explain removing both PC's so I will argue for keeping PC 1, and then analyzing PC3. However, the clustering seems to be amazing for PC 3 & 4. So what should be done? I will use Variable loadings with the PC's so this might be an important decision (but not one I want to belabor the point over)
+
+```{r}
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = species, col = species)) +
+  geom_point() +
+  theme_minimal()
+```
+
+Next I wonder how the clustering looks given different thresholds of accessory genome presence. What part of the accessory genome explains the clustering that we see?
+
+```{r}
+soft_core_genes <- subset(accessory_genome,No..isolates > 665 & No..isolates < 693) %>% select(14:(ncol(accessory_genome)))
+soft_core_genes[!(soft_core_genes=="")] <- 1
+soft_core_genes[soft_core_genes==""] <- 0
+soft_core_prab <- t(data.matrix(soft_core_genes))
+
+shell_genes <- subset(accessory_genome,No..isolates > 105 & No..isolates < 665) %>% select(14:(ncol(accessory_genome)))
+shell_genes[!(shell_genes=="")] <- 1
+shell_genes[shell_genes==""] <- 0
+shell_prab <- t(data.matrix(shell_genes))
+
+cloud_genes <- subset(accessory_genome,No..isolates > 0 & No..isolates < 105) %>% select(14:(ncol(accessory_genome)))
+cloud_genes[!(cloud_genes=="")] <- 1
+cloud_genes[cloud_genes==""] <- 0
+cloud_prab <- t(data.matrix(shell_genes))
+```
+
+Now we will just redo the analysis we did with all the data:
+
+```{r}
+prab_pca <- prcomp(soft_core_prab)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(soft_core_prab)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_minimal()
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+
+prab_pca <- prcomp(shell_prab)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(shell_prab)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_minimal()
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+
+prab_pca <- prcomp(cloud_prab)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(cloud_prab)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_minimal()
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+```
+So the soft core genes don't give us enough information to make clusters, the shell and cloud genes seem to be better at making this distinction, and they are identical in their output. Maybe we should see what happens if we exlude one (cloud or shell) from the analysis.
+
+```{r}
+soft_shell <- subset(accessory_genome,No..isolates > 105 & No..isolates < 693) %>% select(14:(ncol(accessory_genome)))
+soft_shell[!(soft_shell=="")] <- 1
+soft_shell[soft_shell==""] <- 0
+soft_shell <- t(data.matrix(soft_shell))
+soft_cloud <- subset(accessory_genome,(No..isolates > 0 & No..isolates < 105) | (No..isolates > 665 & No..isolates < 693)) %>% select(14:(ncol(accessory_genome)))
+soft_cloud[!(soft_cloud=="")] <- 1
+soft_cloud[soft_cloud==""] <- 0
+soft_cloud <- t(data.matrix(soft_cloud))
+shell_cloud <- subset(accessory_genome,No..isolates > 0 & No..isolates < 665) %>% select(14:(ncol(accessory_genome)))
+shell_cloud[!(shell_cloud=="")] <- 1
+shell_cloud[shell_cloud==""] <- 0
+shell_cloud <- t(data.matrix(shell_cloud))
+```
+
+```{r}
+prab_pca <- prcomp(soft_shell)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(soft_shell)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_minimal()
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+
+prab_pca <- prcomp(soft_cloud)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(soft_cloud)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_minimal()
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+
+prab_pca <- prcomp(shell_cloud)
+variance <- (prab_pca$sdev)^2
+loadings <- prab_pca$rotation
+rownames(loadings) <- colnames(shell_cloud)
+scores <- prab_pca$x 
+
+varPercent <- variance/sum(variance) * 100 
+prin_comp <- paste0("PC",1:10)
+data <- data.frame(prin_comp,varPercent[1:10])
+ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], )) +
+  geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
+  labs(x = "Principal Components", y= "% of Explained Variance") +
+  ggtitle("PCA - Scree Plot") +
+  theme_minimal()
+
+scores <- as.data.frame(scores[,1:4])
+scores$country <- mbov_meta$Country
+scores$species <- mbov_meta$Species
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+  geom_point() +
+  theme_minimal()
+```
+These plots are intriguing because the clustering we see with all the is closest when we include the shell genes! so for this type of analysis, shell genes provides the most information in order to cluster using PCA. My interpretation: The shell genes carry the most variation in presence/absence, so are the most useful for the analysis. Next, the cloud genes provide the necessary information to improve this clustering (the unique genes.)
+
+
+```{r}
+loadings <- prab_pca$rotation
+loadings <- data.frame(round(abs(loadings[,3:4]), 2))
+
+ggplot(loadings,aes(x=PC3,y=PC4)) +
+  geom_point() +
+  geom_jitter() +
+  theme_minimal()
+
+#I'm searching for ways to conduct loading analysis, BUT FOR NOW, I will just get the higher values. To me, I will get (over 0.08, over 0.0625)
+
+filtered_loadings <- subset(loadings, PC3 > 0.05 & loadings$PC4 > 0.06)
+
+ggplot(filtered_loadings,aes(x=PC3,y=PC4)) +
+  geom_point() +
+  geom_jitter() +
+  theme_minimal()
+
+key_COGs <- data.frame(filtered_loadings,stringsAsFactors = FALSE)
+key_COGs$COG <- rownames(key_COGs)
+```
+
+```{r}
+library(dplyr)
+
+#now, let's see how these COGs relate to genome annotations
+auxil$COG <- rownames(auxil)
+key_COGS <- key_COGs %>% left_join(auxil,by = "COG")
+key_COGS$Annotation
+```
+

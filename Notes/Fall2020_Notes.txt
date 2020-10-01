@@ -1,0 +1,30 @@
+Fall 2020 Notes
+
+Oct. 1st
+TODO: Meeting with Liliana
+-> Title needs to be changed to "Characterization of Genome Signiture of Mycobacterium bovis"
+-> Very busy slides, less text if possible
+-> I don't discuss how animals become infected (goes before talking about reservoirs). Look up transmission routes for bTB
+-> define what a spillover event is, how it distinguishes from a reservoir of infection. Reshift how we are thinking of this problem, perhaps break it down more.
+-> Done by Monday Afternoon!
+-> Script for each slides
+-> practice with speaker notes on laptop
+-> No need to talk about all the genotyping methods, just talk about Whole genome sequencing
+-> Effects greatly several countries around the world, Multiple Hosts as background.
+-> Cite the figures visibly!
+-> highlight that core genes are important for bacterial functions. What's the difference between soft core genes and core genes.
+-> for PCA, give very brief definition of PCA. Not so much math + history
+-> what are orthologous genes? I never define them in the presentation.
+-> How to identify PCA results,
+
+-> create the pangenome repository!
+DONE: Meeting with Liliana
+TODO: Rethink the Goal of our research, why focus on genomic signatures of adaptation.
+TODO: Notes of Pricipal Coordinate Analysis. Compile papers or consult a book?
+
+####
+Sept. 30th
+TODO: Recreate Sequencing Machine PCA Figure
+TODO: Investigate PCA for Pangenomes
+DONE: Recreate Sequencing Machine PCA Figure
+DONE: Investigate PCA for Pangenomes
