@@ -9,6 +9,8 @@ output:
 
 ## Introduction
 
+Here, I am doing a full-fledged PCA analysis on the Accessory genome of M. bovis to see how isolates cluster together. 
+
 ## Figures
 
 # 1. Data Description
@@ -24,7 +26,7 @@ accession_bar <- accession_meta %>% group_by(Species, Host) %>% summarise(no_in_
 accession_bar <- accession_bar[order(accession_bar$Host,accession_bar$no_in_data),]
 
 #A bar plot separated by species, colored by reservoir status.
-ggbarplot(accession_bar,"Species","no_in_data", fill = "Host", color = "Host",palette = c("steelblue","red"), xlab = "Host Species", ylab = "No. of isolates", lab.size = 10) + 
+ggbarplot(accession_bar,"Species","no_in_data",  fill = "steelblue", color = "steelblue", xlab = "Host Species", ylab = "No. of isolates", lab.size = 10) + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1),axis.text=element_text(size = 15), axis.title = element_text(size = 18)) +
 scale_y_log10()
 ```
@@ -80,6 +82,7 @@ accessory_pa[accessory_pa==""] <- 0
 
 ##let's transpose the dataframe by turning it into a matrix first. 
 pa_transpose <- t(data.matrix(accessory_pa))
+heatmap(pa_transpose, scale = "none", Rowv = NA, Colv = NA, col = c("white","blue"), main = "Mycobacterium bovis Accessory Genome")
 
 ```
 
@@ -101,7 +104,7 @@ ggplot(data, aes(x=reorder(prin_comp, -varPercent[1:10]), y=varPercent[1:10], ))
   geom_bar(stat = "identity",fill='steelblue', color="steelblue") + 
   labs(x = "Principal Components", y= "% of Explained Variance") +
   ggtitle("PCA - Scree Plot") +
-  theme_bw()
+  theme_minimal()
 ```
 
 ```{r}
@@ -112,12 +115,12 @@ mbov_meta <- read.csv("/Users/noah_/Documents/filtered_isolate_list.csv",header 
 upd_mbov_meta <- mbov_meta %>% left_join(mbov_full_meta %>% select(Experiment,Instrument,Center.Name,Collection_Date), by = c("Sample" = "Experiment"))
 mbov_meta <- upd_mbov_meta
 
-scores <- as.data.frame(scores[,1:4])
+scores <- as.data.frame(scores[,1:5])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 scores$instrument <- mbov_meta$Instrument
 
-ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = species, col = species)) +
   geom_point() +
   theme_minimal()
 
@@ -133,7 +136,7 @@ ggplot(as.data.frame(scores),aes(x=PC1,y=PC2, fill = species, col = species)) +
   theme_minimal()
 ```
 
-Why is this weird to me? It seems that by looking at the first 2 PC's, the separation of classes just don't make sense. PC1 isn't terrible, it can at least describe the some differences between the points based on country, but on PC2, its saying there are 3 different classes of isolates that are similar across all the countries, even with little to no overlap.
+
 
 ```{r}
 ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = instrument, col = instrument)) +
@@ -147,7 +150,7 @@ ggplot(as.data.frame(scores),aes(x=PC2,y=PC3, fill = country, col = country)) +
 It seems that PC2 is the strange actor in this analysis. I observed this during the summer and just opted to remove PC's 1 & 2. Without knowing too much however, I think it might be harder to explain removing both PC's so I will argue for keeping PC 1, and then analyzing PC3. However, the clustering seems to be amazing for PC 3 & 4. So what should be done? I will use Variable loadings with the PC's so this might be an important decision (but not one I want to belabor the point over)
 
 ```{r}
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = species, col = species)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = species, col = species)) +
   geom_point() +
   theme_minimal()
 ```
@@ -193,7 +196,7 @@ scores <- as.data.frame(scores[,1:4])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 
@@ -216,7 +219,7 @@ scores <- as.data.frame(scores[,1:4])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 
@@ -239,7 +242,7 @@ scores <- as.data.frame(scores[,1:4])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 ```
@@ -280,7 +283,7 @@ scores <- as.data.frame(scores[,1:4])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 
@@ -303,7 +306,7 @@ scores <- as.data.frame(scores[,1:4])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 
@@ -326,7 +329,7 @@ scores <- as.data.frame(scores[,1:4])
 scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC3, fill = country, col = country)) +
+ggplot(as.data.frame(scores),aes(x=PC3,y=PC4, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 ```
@@ -344,7 +347,7 @@ ggplot(loadings,aes(x=PC3,y=PC4)) +
 
 #I'm searching for ways to conduct loading analysis, BUT FOR NOW, I will just get the higher values. To me, I will get (over 0.08, over 0.0625)
 
-filtered_loadings <- subset(loadings, PC3 > 0.05 & loadings$PC4 > 0.06)
+filtered_loadings <- subset(loadings, PC3 > 0.02 & loadings$PC4 > 0.02)
 
 ggplot(filtered_loadings,aes(x=PC3,y=PC4)) +
   geom_point() +

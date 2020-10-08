@@ -1,5 +1,33 @@
 Fall 2020 Notes
 
+Oct 8th
+TODO: Investigate PC2 for Analysis
+DONE: Investigate PC2 for Analysis -> I saved my results to investigatingPCA.Rmd
+
+####
+Oct. 5th
+TODO: finish draft of presentation + practice
+TODO: read a bit about loading analysis
+-> Might be benificial to find the top 5% of factors and plot their direction in PC3 & 4?
+TODO: do more research on pangenome PCA noise
+-> From "Population Structure, Stratification, and Introgression of Human Structural Variation", it appears that the noise in PCs is due to assembly quality. something to check on
+DONE: finish draft of presentation + practice
+DONE: read a bit about loading analysis
+DONE: do more research on pangenome PCA noise -> check if the values have anything to do with assembly statistics
+
+####
+Oct. 2nd
+TODO: Rethink the Goal of our research, why focus on genomic signatures of adaptation.
+-> So, what things improve if we have higher resolution genomic data of M. bovis?
+-> From "Patterns and Processes of Mycobacterium bovis Evolution Revealed by Phylogenomic Analyses (Patane et al.)"
+Disease control programmes based on regular tuberculin testing, and removal of infected animals (“test-and-slaughter”) have been successful in eradicating, or markedly reducing, tuberculosis (TB) from cattle in many countries, but these measures are less effective in countries with wildlife reservoirs of M. bovis (Cousins 2001; Miller and Sweeney 2013). The gold standard for postmortem diagnosis of bovine TB has been mycobacterial culture, although this method requires a significant amount of time (up to 90 days) (Lisle et al. 2008). This fact, together with economic globalization and the pressure from importing markets for a definitive diagnosis of tuberculosis in cattle that exhibit lesions compatible with tuberculosis and the advances in molecular biology, have provided a stimulus for improved TB molecular diagnostic techniques (Thacker et al. 2011; Araújo et al. 2014).
+-> M. bovis evolution can lead to genetic variability which can lead to understanding transmission dynamics
+-> What Scale does M. bovis evolution act on? country scale or the species population scale?
+-> If genomes are more related on the country level, then clusters should align with country-of-origin metadata.
+-> If genomes are more related on the species population level, then clusters should align with species metadata.
+
+
+####
 Oct. 1st
 TODO: Meeting with Liliana
 -> Title needs to be changed to "Characterization of Genome Signiture of Mycobacterium bovis"
@@ -18,9 +46,9 @@ TODO: Meeting with Liliana
 -> How to identify PCA results,
 
 -> create the pangenome repository!
+TODO: Notes of Principal Component Analysis. Compile papers or consult a book?
 DONE: Meeting with Liliana
-TODO: Rethink the Goal of our research, why focus on genomic signatures of adaptation.
-TODO: Notes of Pricipal Coordinate Analysis. Compile papers or consult a book?
+DONE: Notes of Principal Component Analysis. Compile papers or consult a book?
 
 ####
 Sept. 30th
