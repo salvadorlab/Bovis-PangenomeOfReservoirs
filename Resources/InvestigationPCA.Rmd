@@ -1,21 +1,39 @@
 ---
-title: "MbovisInvestigatePCA"
+title: "Investigating Clustering of PC1 and PC2"
 author: "Noah Legall"
 date: "10/8/2020"
 output: pdf_document
 ---
 
-As a reminder let's observe PC's 1 & 2 score plot:
 
-```{r}
+I wanted to dig into what could possibly lead to the clustering that is observed when we look at PC1 & PC2. As a reminder let's observe PC's 1 & 2 score plot:
+
+```{r,echo=FALSE}
+library(ggplot2)
+library(dplyr)
 # I am curious how the clustering looks for the top 4 PC's. For the PCoA, we notice some strange clustering in the first 2 components, so I want to investigate if that is true as well. 
+gene_pres_abs <- read.csv("mbovis_prab.csv", header = TRUE, stringsAsFactors = FALSE, row.names = "Gene")
+accessory_genome <- gene_pres_abs[!(is.na(gene_pres_abs$Accessory.Fragment)),]
+core_genome <- gene_pres_abs[is.na(gene_pres_abs$Accessory.Fragment),]
+
+accessory_genome_non_unique <- accessory_genome
+auxil <- gene_pres_abs %>% select(2:14)
+
+accessory_pa <- accessory_genome_non_unique %>% select(14:(ncol(accessory_genome_non_unique)))
+##edit the gene presence absence to be numeric.
+accessory_pa[!(accessory_pa=="")] <- 1
+accessory_pa[accessory_pa==""] <- 0
+
+##let's transpose the dataframe by turning it into a matrix first. 
+pa_transpose <- t(data.matrix(accessory_pa))
 prab_pca <- prcomp(pa_transpose)
 variance <- (prab_pca$sdev)^2
 loadings <- prab_pca$rotation
 rownames(loadings) <- colnames(pa_transpose)
 scores <- prab_pca$x 
+```
 
-
+```{r,echo=FALSE}
 mbov_full_meta <- read.csv("../../../Documents/Mbovis_meta.csv", header = TRUE,stringsAsFactors = FALSE)
 mbov_meta <- read.csv("/Users/noah_/Documents/filtered_isolate_list.csv",header = TRUE, stringsAsFactors = FALSE)
 upd_mbov_meta <- mbov_meta %>% left_join(mbov_full_meta %>% select(Experiment,Instrument,Center.Name,Collection_Date), by = c("Sample" = "Experiment"))
@@ -26,17 +44,24 @@ scores$country <- mbov_meta$Country
 scores$species <- mbov_meta$Species
 scores$instrument <- mbov_meta$Instrument
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=PC2, fill = species, col = species)) +
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC2, fill = country, col = country)) +
   geom_point() +
   theme_minimal()
 ```
 
-The closest possible solution I could find is from "Population Structure, Stratification, and Introgression of Human Structural Variation" where the 1st PC's are probably due to genome assembly differences.
-
-To test is this is happening in my data, I will merge the assembly stats with the PCA data and do correlation testing specifically on PC2. I'll run a for loop to test every numeric column in the genome assembly statistics dataset. 
+For the first principal component PC1, we can see that the clustering might be explained by the method used to sequence the M. bovis isolates.  PC2 indicates that some isolates are more like each other across countries than within countries, and there are three different classes of isolates. This is the clustering we can observe if we project the points onto PC2. 
 
 ```{r}
-library(dplyr)
+ggplot(as.data.frame(scores),aes(x=PC1,y=PC2, fill = instrument, col = instrument)) +
+  geom_point() +
+  theme_minimal()
+```
+
+In trying to figure out how this clustering could be occuring, the closest possible solution I could find is from "Population Structure, Stratification, and Introgression of Human Structural Variation" where the 1st PC's are probably due to genome assembly differences.
+
+To test is this is happening in my data, I will merge the assembly stats with the PCA data and do correlation testing on PC1 and PC2. I'll run a for loop to test every numeric column in the genome assembly statistics dataset. 
+
+```{r,echo=FALSE}
 scores$assembly <- rownames(scores)
 assembly_stats <- read.csv("mbovis_transposed_report.csv",header = TRUE)
 assembly_stats$assembly <- gsub(".scaffold","",assembly_stats$ï..Assembly)
@@ -44,7 +69,46 @@ scores <- scores %>% left_join(assembly_stats, by="assembly")
 ```
 
 ```{r}
-pc2 <- scores$PC1
+pc1 <- scores$PC1
+#quick test
+#cor.test(pc2,scores$N50,method = "pearson")
+
+correlation_pvalue <- c()
+genome_quality_stat <- c()
+for(i in names(scores)){
+  if(is.numeric(scores[,i])){
+    PC1_corr <- cor.test(pc1,scores[,i])
+    correlation_pvalue <- append(correlation_pvalue,PC1_corr$p.value)
+    genome_quality_stat <- append(genome_quality_stat,i)
+  }
+  else{
+    next()
+  }
+  
+}
+
+corr_values <- data.frame(genome_quality_stat,correlation_pvalue)
+
+
+#sort from lowest to highest
+#order by the lowest p - value
+head(corr_values[order(corr_values$correlation_pvalue),])
+```
+
+PC1 seems to be strongly correlated with genome quality based on the correlation pvalues, the highest being the number of N's per kilobase for the genome assemblies (p = 4.743733e-169).This can be visualized by plotting the values of PC1 and X..N.s.per.100.kbp: 
+
+```{r,echo=FALSE}
+
+ggplot(as.data.frame(scores),aes(x=PC1,y=X..N.s.per.100.kbp)) +
+  geom_point() +
+  theme_minimal() +
+  geom_smooth()
+
+```
+
+
+```{r}
+pc2 <- scores$PC2
 #quick test
 #cor.test(pc2,scores$N50,method = "pearson")
 
@@ -63,21 +127,26 @@ for(i in names(scores)){
 }
 
 corr_values <- data.frame(genome_quality_stat,correlation_pvalue)
-#order by the lowest p - value
 
+
+#sort from lowest to highest
+#order by the lowest p - value
 head(corr_values[order(corr_values$correlation_pvalue),])
 ```
 
-```{r}
+PC2 seems to also have some type of correlation with genome quality but it isn't as convincing as the correlations for PC1. GC content was the lowest pvalue for PC2, so let's look at the scatterplot of GC content to PC2:
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=X..N.s.per.100.kbp)) +
-  geom_point() +
-  theme_minimal()
+```{r,echo=FALSE}
 
-ggplot(as.data.frame(scores),aes(x=PC1,y=GC....)) +
+ggplot(as.data.frame(scores),aes(x=PC2,y=GC....)) +
   geom_point() +
-  theme_minimal()
+  theme_minimal() +
+  geom_smooth()
+
 ```
 
-Genome assembly can't particularly explain the patterns we see in PC2. And from my own perspective, PC1 can be explained by Genome Quality based on the correlations that match with PC1. whatever causes the clustering with PC2 probably has something to do with the bacterial preparation step, but I can't describe what it could be. 
+The GC content doesn't seem to really segregate well the PC2 values (we still see 3 distinct classes of clusters). This suggests that the genome quality isn't what explains the clustering we see along this axis.
 
+# Summary 
+
+Genome assembly can't particularly explain the patterns we see in PC2. PC1 can be explained by Genome Quality based on the correlations that match with PC1. We still do not understand fully the clustering along PC2, but this informs my next intuitions that maybe the variation we see in PC2 might be through technical noise.

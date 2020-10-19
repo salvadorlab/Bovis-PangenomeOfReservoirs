@@ -6,17 +6,6 @@ import sys # use to access arguments
 import os # use in order to call commands from the terminal script is called in
 import time # for time stamps
 
-#Error Handling 
-#try catch, or if statement
-#argparse - Pablo suggestion, makes it usable.
-
-#Variable existence
-#try and except
-#if(fake_var):
-#    print()
-#
-#Append the accession name to the output
-#error handling for when a job doesn't work well.
 
 #1. create automatically the submission script for qsub
 print("[{}] beginning the accession list download".format(time.strftime('%a %H:%M:%S')))

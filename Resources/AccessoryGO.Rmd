@@ -1,0 +1,48 @@
+---
+title: "PCALoadingAnalysis"
+author: "Noah Legall"
+date: "10/8/2020"
+output: pdf_document
+---
+Now that we have some clustering we feel a bit more comfortable about, we can look at how the orthogolous genes contribute to the clustering. 
+
+As a reminder:
+
+```{r}
+loadings <- prab_pca$rotation
+loadings <- data.frame(round(abs(loadings[,3:4]), 2))
+
+ggplot(loadings,aes(x=PC3,y=PC4)) +
+  geom_point() +
+  geom_jitter() +
+  theme_minimal()
+
+#I'm searching for ways to conduct loading analysis, BUT FOR NOW, I will just get the higher values. To me, I will get (over 0.08, over 0.0625)
+
+filtered_loadings <- subset(loadings, PC3 > 0.02 & loadings$PC4 > 0.02)
+
+ggplot(filtered_loadings,aes(x=PC3,y=PC4)) +
+  geom_point() +
+  geom_jitter() +
+  theme_minimal()
+
+key_COGs <- data.frame(filtered_loadings,stringsAsFactors = FALSE)
+key_COGs$COG <- rownames(key_COGs)
+
+#now, let's see how these COGs relate to genome annotations
+auxil$COG <- rownames(auxil)
+key_COGS <- key_COGs %>% left_join(auxil,by = "COG")
+key_COGS$Annotation
+```
+
+So let's use regular expressions to extract the gene names
+```{r}
+#grep("gene=",key_COGS$Annotation,value = T)
+#sub("(?i).*gene=.*?(\\d+).*", "\\1", key_COGS$Annotation)
+clust_genes <- regmatches(key_COGS$Annotation, regexpr("gene=[a-z,A-z,0-9]+", key_COGS$Annotation)) 
+clust_genes <- gsub("gene=","",clust_genes)
+clust_genes <- gsub("]","",clust_genes)
+for(i in clust_genes){
+  print(i)
+}
+```

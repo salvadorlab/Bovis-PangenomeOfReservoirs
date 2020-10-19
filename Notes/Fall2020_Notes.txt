@@ -1,5 +1,30 @@
 Fall 2020 Notes
 
+Oct. 19th
+TODO: Make Rmarkdown files for PCA and InvestigatingPCA
+TODO: Test out Mauve
+DONE: Make Rmarkdown files for PCA and InvestigatingPCA
+DONE: Test out Mauve -> can now have it run on the cluster. must make sure that I am not using files that are too big because the algorithm will fail 
+
+
+####
+Oct. 12th
+TODO: write abstract for PWG Meeting
+TODO: re-download 700 isolates, trimming
+-> Sapelo2 deleted the genome files, gotta take it from scratch plus learn how to use the new system.
+DONE: write abstract for PWG Meeting
+DONE: re-download 700 isolates, trimming
+
+####
+Oct 11th
+TODO: PCA loading papers
+TODO: Ancestral State Mapping + GLMs
+-> look at following papers
+"The use of genome wide association methods to investigate pathogenicity, population structure and serovar in Haemophilus parasuis"
+"Deciphering the unexplored Leptospira diversity from soils uncovers genomic evolution to virulence"
+DONE: PCA loading papers
+
+####
 Oct 8th
 TODO: Investigate PC2 for Analysis
 DONE: Investigate PC2 for Analysis -> I saved my results to investigatingPCA.Rmd
