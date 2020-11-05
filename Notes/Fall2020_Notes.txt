@@ -1,9 +1,14 @@
 Fall 2020 Notes
 
+Nov. 5th
+TODO: investigate Snippy workflow
+DONE: investigate Snippy workflow
+
 Nov. 2nd
 TODO: find areas of positive selection using OmegaPlus
 -> benchmarking tool. checking 100000 sites in alignment with window sizes ranging 300 - 500
 -> SequinR looks promising cause it can be used in conjunction with Roary output "Distinct Campylobacter fetus lineages adapted as livestock pathogens and human pathobionts in the intestinal microbiota"
+DONE: find areas of positive selection using OmegaPlus
 
 ####
 Oct 30th
