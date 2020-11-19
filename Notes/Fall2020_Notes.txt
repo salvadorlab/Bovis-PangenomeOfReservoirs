@@ -1,8 +1,17 @@
 Fall 2020 Notes
 
+Nov. 19th
+TODO: Make slide deck for Liliana to look at the current results + what I'm planning to do
+TODO: Write Script for gene alignment creation
+DONE: Make slide deck for Liliana to look at the current results + what I'm planning to do
+
+
 Nov. 5th
 TODO: investigate Snippy workflow
 DONE: investigate Snippy workflow
+
+
+####
 
 Nov. 2nd
 TODO: find areas of positive selection using OmegaPlus
