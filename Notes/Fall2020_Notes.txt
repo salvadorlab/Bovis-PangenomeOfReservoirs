@@ -1,18 +1,23 @@
 Fall 2020 Notes
 
+Nov. 24th
+TODO: add multi-threading to tajimaD script
+TODO: email the speakers about their days
+DONE: email the speakers about their days
+
+
 Nov. 19th
 TODO: Make slide deck for Liliana to look at the current results + what I'm planning to do
 TODO: Write Script for gene alignment creation
 DONE: Make slide deck for Liliana to look at the current results + what I'm planning to do
 
-
+####
 Nov. 5th
 TODO: investigate Snippy workflow
 DONE: investigate Snippy workflow
 
 
 ####
-
 Nov. 2nd
 TODO: find areas of positive selection using OmegaPlus
 -> benchmarking tool. checking 100000 sites in alignment with window sizes ranging 300 - 500
