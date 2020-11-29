@@ -1,4 +1,9 @@
 Fall 2020 Notes
+Nov. 29th
+TODO: Clean code up for tajima's D. run on UK and NZ data
+TODO: update the Gene 8940 issues page.
+DONE: Clean code up for tajima's D. run on UK and NZ data
+
 
 Nov. 24th
 TODO: add multi-threading to tajimaD script
