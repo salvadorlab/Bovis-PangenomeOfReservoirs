@@ -1,9 +1,31 @@
 Fall 2020 Notes
+
+Dec 3rd
+TODO: 1 hr researching for review, 1 hr writing
+TODO: improve figures if necessary
+TODO: GENE 8940 hw
+
+Dec. 1st
+TODO: Email Douda about being on my committee
+TODO: Create Figure with Tajimas D statistics
+TODO: work on improving phylogeny diagram
+TODO: Email Travis Glenn about Diversity committee
+DONE: Email Douda about being on my committee
+DONE: Create Figure with Tajimas D statistics
+
+Nov. 30th
+TODO: Email Committee -> talk to Liliana
+TODO: Create Slide Deck with question -> answer structure
+TODO: Analyze data (if it completes today)
+DONE: Email Committee -> talk to Liliana
+DONE: Create Slide Deck with question -> answer structure
+DONE: Analyze data (if it completes today)
+
 Nov. 29th
 TODO: Clean code up for tajima's D. run on UK and NZ data
 TODO: update the Gene 8940 issues page.
 DONE: Clean code up for tajima's D. run on UK and NZ data
-
+DONE: update the Gene 8940 issues page.
 
 Nov. 24th
 TODO: add multi-threading to tajimaD script

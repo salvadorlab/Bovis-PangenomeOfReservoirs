@@ -102,6 +102,7 @@ PC1 seems to be strongly correlated with genome quality based on the correlation
 ggplot(as.data.frame(scores),aes(x=PC1,y=X..N.s.per.100.kbp)) +
   geom_point() +
   theme_minimal() +
+  ylab(" N's per 100 kb") +
   geom_smooth()
 
 ```
