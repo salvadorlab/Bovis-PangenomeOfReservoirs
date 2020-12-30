@@ -1,0 +1,6 @@
+Spring 2021 Notes
+
+January 2nd
+TODO: Calculate Tajima's D for species
+TODO: Finalize details for committee meeting
+TODO: Investigate possibility of Rust version of Tajima's D code
