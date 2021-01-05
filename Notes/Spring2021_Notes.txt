@@ -1,0 +1,14 @@
+Spring 2021 Notes
+
+January 5th
+TODO: Address comments in pangenome review
+TODO: Continue Crafting the committee meeting presentation
+
+January 4th
+TODO: Begin Committee Meeting Presentation
+
+January 2nd
+TODO: Finalize details for committee meeting
+TODO: Investigate possibility of Rust version of Tajima's D code
+DONE: Finalize details for committee meeting
+DONE: Investigate possibility of Rust version of Tajima's D code
