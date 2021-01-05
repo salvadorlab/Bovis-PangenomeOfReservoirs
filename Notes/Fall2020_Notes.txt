@@ -1,9 +1,17 @@
 Fall 2020 Notes
 
+Dec 18th
+TODO: filter the species to do tajimas D calculations
+DONE: filter the species to do tajimas D calculations
+
 Dec 3rd
 TODO: 1 hr researching for review, 1 hr writing
 TODO: improve figures if necessary
 TODO: GENE 8940 hw
+DONE: 1 hr researching for review, 1 hr writing
+DONE: improve figures if necessary
+DONE: GENE 8940 hw
+
 
 Dec. 1st
 TODO: Email Douda about being on my committee
