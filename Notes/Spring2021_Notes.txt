@@ -6,6 +6,7 @@ TODO: Continue Crafting the committee meeting presentation
 
 January 4th
 TODO: Begin Committee Meeting Presentation
+DONE: Begin Committee Meeting Presentation
 
 January 2nd
 TODO: Finalize details for committee meeting
