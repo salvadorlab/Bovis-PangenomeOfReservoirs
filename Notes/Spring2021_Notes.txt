@@ -1,4 +1,9 @@
 Spring 2021 Notes
+January 6th
+TODO: Committee meeting slides all day
+DONE: Committee meeting slides all day -> will save the other slides for later on tonight
+TODO: if I have time, edit pangenome review 
+
 
 January 5th
 TODO: Address comments in pangenome review
@@ -6,6 +11,7 @@ TODO: Continue Crafting the committee meeting presentation
 
 January 4th
 TODO: Begin Committee Meeting Presentation
+DONE: Begin Committee Meeting Presentation
 
 January 2nd
 TODO: Finalize details for committee meeting
