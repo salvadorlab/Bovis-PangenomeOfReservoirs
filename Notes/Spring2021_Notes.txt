@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Spring 2021 Notes
 January 6th
 TODO: Committee meeting slides all day
@@ -17,4 +18,37 @@ January 2nd
 TODO: Finalize details for committee meeting
 TODO: Investigate possibility of Rust version of Tajima's D code
 DONE: Finalize details for committee meeting
+=======
+Spring 2021 Notes
+January 15th
+TODO: IOB recruitment day
+
+
+January 11th
+TODO: Edit slides further
+TODO: Do review form for Liliana Lab 
+TODO: Send email asking for volunteers for ILS IOB representation.
+DONE: Edit slides further
+DONE: Do review form for Liliana Lab 
+DONE: Send email asking for volunteers for ILS IOB representation.
+
+January 6th
+TODO: Committee meeting slides all day
+DONE: Committee meeting slides all day -> will save the other slides for later on tonight
+TODO: if I have time, edit pangenome review 
+
+
+January 5th
+TODO: Address comments in pangenome review
+TODO: Continue Crafting the committee meeting presentation
+
+January 4th
+TODO: Begin Committee Meeting Presentation
+DONE: Begin Committee Meeting Presentation
+
+January 2nd
+TODO: Finalize details for committee meeting
+TODO: Investigate possibility of Rust version of Tajima's D code
+DONE: Finalize details for committee meeting
+>>>>>>> a4b04d353a81ec945e136bb6430f338599d5b257
 DONE: Investigate possibility of Rust version of Tajima's D code
